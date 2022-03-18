@@ -159,4 +159,24 @@ class ShorturlController extends AppBaseController
 
         return redirect(route('shorturls.index'));
     }
+
+    /**
+     * @param Request $request
+     * @param $shortUrl
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function redirectToOriginalUrl(Request $request, $shortUrl)
+    {
+        $shortUrl = (int) $shortUrl;
+        $shortUrlRecord = $this->shorturlRepository->getShortUrlRecordByCode($shortUrl);
+
+        if (is_null($shortUrlRecord)) {
+            Flash::error('Shorturl not found');
+            return redirect(route('shorturls.index'));
+        } else {
+            $this->shorturlRepository->incrementRedirectCounterByShortUrlCode($shortUrl);
+            return redirect($shortUrlRecord->original_url);
+        }
+    }
+
 }

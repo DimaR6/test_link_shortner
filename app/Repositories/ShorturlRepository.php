@@ -39,4 +39,26 @@ class ShorturlRepository extends BaseRepository
     {
         return Shorturl::class;
     }
+
+    /**
+     * @param $shortUrl
+     * @return mixed
+     */
+    public function incrementRedirectCounterByShortUrlCode($shortUrl)
+    {
+        return Shorturl::query()
+            ->where('short_url', $shortUrl)
+            ->increment('redirect_count');
+    }
+
+    /**
+     * @param $shortUrl
+     * @return mixed
+     */
+    public function getShortUrlRecordByCode($shortUrl)
+    {
+        return Shorturl::query()
+            ->where('short_url', $shortUrl)
+            ->first();
+    }
 }
