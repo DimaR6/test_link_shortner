@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Class Shorturl
  * @package App\Models
- * @version March 18, 2022, 11:52 am UTC
+ * @version March 18, 2022, 12:08 pm UTC
  *
  * @property string $original_url
  * @property string $short_url
@@ -22,7 +22,7 @@ class Shorturl extends Model
     use HasFactory;
 
     public $table = 'shorturls';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -55,12 +55,7 @@ class Shorturl extends Model
      * @var array
      */
     public static $rules = [
-        'original_url' => 'nullable|string',
-        'short_url' => 'nullable|string',
-        'redirect_count' => 'required|integer',
-        'created_at' => 'nullable',
-        'updated_at' => 'nullable'
+        'original_url' => 'required|string|min:20|max:1000',
     ];
 
-    
 }

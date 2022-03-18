@@ -8,7 +8,7 @@ use App\Repositories\BaseRepository;
 /**
  * Class ShorturlRepository
  * @package App\Repositories
- * @version March 18, 2022, 11:52 am UTC
+ * @version March 18, 2022, 12:08 pm UTC
 */
 
 class ShorturlRepository extends BaseRepository

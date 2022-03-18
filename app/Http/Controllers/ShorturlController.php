@@ -54,9 +54,16 @@ class ShorturlController extends AppBaseController
      */
     public function store(CreateShorturlRequest $request)
     {
-        $input = $request->all();
+        $originalUrl = $request->get('original_url');
 
-        $shorturl = $this->shorturlRepository->create($input);
+        $shortUrl = '';
+
+        $data = [
+            'original_url' => $originalUrl,
+            'short_url' => $shortUrl
+        ];
+
+        $shortUrl = $this->shorturlRepository->create($data);
 
         Flash::success('Shorturl saved successfully.');
 

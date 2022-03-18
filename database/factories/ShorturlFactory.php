@@ -26,7 +26,8 @@ class ShorturlFactory extends Factory
         'short_url' => $this->faker->text,
         'redirect_count' => $this->faker->randomDigitNotNull,
         'created_at' => $this->faker->date('Y-m-d H:i:s'),
-        'updated_at' => $this->faker->date('Y-m-d H:i:s')
+        'updated_at' => $this->faker->date('Y-m-d H:i:s'),
+        'deleted_at' => $this->faker->date('Y-m-d H:i:s')
         ];
     }
 }
