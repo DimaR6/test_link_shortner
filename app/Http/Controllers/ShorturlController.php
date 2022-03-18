@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\UrlHelper;
 use App\Http\Requests\CreateShorturlRequest;
 use App\Http\Requests\UpdateShorturlRequest;
 use App\Repositories\ShorturlRepository;
@@ -56,11 +57,9 @@ class ShorturlController extends AppBaseController
     {
         $originalUrl = $request->get('original_url');
 
-        $shortUrl = '';
-
         $data = [
             'original_url' => $originalUrl,
-            'short_url' => $shortUrl
+            'short_url' => UrlHelper::generateShortUrl($originalUrl)
         ];
 
         $shortUrl = $this->shorturlRepository->create($data);

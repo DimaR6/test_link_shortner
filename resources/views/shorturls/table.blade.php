@@ -11,9 +11,10 @@
         <tbody>
         @foreach($shorturls as $shorturl)
             <tr>
-                <td>{{ $shorturl->original_url }}</td>
-            <td>{{ $shorturl->short_url }}</td>
-            <td>{{ $shorturl->redirect_count }}</td>
+                <td><a href="{{ $shorturl->original_url }}">{{ $shorturl->original_url }}</a></td>
+                <td><a href="{{ $shorturl->short_url }}">{{ $shorturl->short_url }}</a>
+                </td>
+                <td>{{ $shorturl->redirect_count }}</td>
                 <td width="120">
                     {!! Form::open(['route' => ['shorturls.destroy', $shorturl->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
