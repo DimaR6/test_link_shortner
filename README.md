@@ -17,4 +17,6 @@ You must have SSH access to a server with **PHP 7.4+**, **MYSQL**, installed [Co
 3. php artisan migrate
 4. npm install
 5. npm run prod
+6. create user
+7. menu link /home
 ```
