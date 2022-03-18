@@ -14,7 +14,8 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "infyomlabs/laravel-generator": "^3.0",
-        "infyomlabs/adminlte-templates": "^3.0"
+        "infyomlabs/adminlte-templates": "^3.0",
+        "laravelcollective/html": "^6.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
