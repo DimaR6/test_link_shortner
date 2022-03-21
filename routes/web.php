@@ -22,6 +22,7 @@ Route::resource('users', 'UserController')->middleware('auth');
 
 Auth::routes();
 
+Route::post('/upload', [App\Http\Controllers\UserController::class, 'pdfUpload']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/short-url/{shortUrl}', [App\Http\Controllers\ShorturlController::class, 'redirectToOriginalUrl'])->name('redirectToOriginalUrl');

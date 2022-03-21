@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UploadPDFRequest;
 use App\Models\Company;
 use App\Models\Country;
 use App\Models\Shorturl;
+use App\Models\Upload;
 use App\Models\UserToCompany;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Services\PdfService;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -20,9 +23,12 @@ class UserController extends AppBaseController
     /** @var $userRepository UserRepository */
     private $userRepository;
 
-    public function __construct(UserRepository $userRepo)
+    private $pdfService;
+
+    public function __construct(UserRepository $userRepo, PdfService $pdfService)
     {
         $this->userRepository = $userRepo;
+        $this->pdfService = $pdfService;
     }
 
     /**
@@ -181,7 +187,31 @@ class UserController extends AppBaseController
             ->leftjoin('user_to_companies', 'user_to_companies.company_id', '=', 'companies.id')
             ->leftjoin('users', 'users.id', '=', 'user_to_companies.user_id')
             ->where('countries.name', 'like', '%' . $countryName . '%')
+            ->distinct()
             ->get();
 
     }
+
+    /**
+     * @param UploadPDFRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function pdfUpload(UploadPDFRequest $request)
+    {
+        $pdf = $this->pdfService->searchFor('Proposal');
+
+        if (empty($pdf)) {
+            return response()->json([
+                'message' => 'Record not found.'
+            ], 422);
+        }
+
+        $pdf = Upload::updateOrCreate(
+            ['size' => $pdf['size'], 'name' => $pdf['name']],
+            ['value' =>  $pdf['value']]
+        );
+
+        return $pdf;
+    }
+
 }
