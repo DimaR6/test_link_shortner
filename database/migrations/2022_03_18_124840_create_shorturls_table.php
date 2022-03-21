@@ -17,7 +17,7 @@ class CreateShorturlsTable extends Migration
             $table->id();
             $table->text('original_url')->nullable();
             $table->bigInteger('redirect_count')->default(0);
-            $table->bigInteger('short_url')->nullable();
+            $table->string('short_url', 255)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

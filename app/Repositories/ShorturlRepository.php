@@ -61,4 +61,14 @@ class ShorturlRepository extends BaseRepository
             ->where('short_url', $shortUrl)
             ->first();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLastRecord()
+    {
+        return Shorturl::query()
+            ->latest('created_at')
+            ->first();
+    }
 }

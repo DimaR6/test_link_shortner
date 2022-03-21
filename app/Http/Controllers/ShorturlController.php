@@ -57,9 +57,17 @@ class ShorturlController extends AppBaseController
     {
         $originalUrl = $request->get('original_url');
 
+        $lastRecord = $this->shorturlRepository->getLastRecord();
+
+        $lastId = 1;
+
+        if (isset($lastRecord->id)) {
+            $lastId = $lastRecord->id +1;
+        }
+
         $data = [
             'original_url' => $originalUrl,
-            'short_url' => UrlHelper::generateShortUrl($originalUrl)
+            'short_url' => UrlHelper::generateShortUrl($lastId)
         ];
 
         $shortUrl = $this->shorturlRepository->create($data);

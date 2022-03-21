@@ -10,12 +10,12 @@ use Illuminate\Support\Str;
 class UrlHelper
 {
     /**
-     * @param $url
+     * @param $value
      * @return string
      */
-    public static function generateShortUrl($url)
+    public static function generateShortUrl($value)
     {
-        return intval($url, 36);
+        return str_pad($value, 20, '0', STR_PAD_LEFT);
     }
 
 }
