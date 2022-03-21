@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Company;
+use App\Models\Country;
+use App\Models\Shorturl;
+use App\Models\UserToCompany;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
@@ -157,5 +161,27 @@ class UserController extends AppBaseController
         Flash::success('User deleted successfully.');
 
         return redirect(route('users.index'));
+    }
+
+    /**
+     * @param Request $request
+     * @param $countryName
+     * @return array
+     */
+    public function getUsersByCountryName(Request $request, $countryName)
+    {
+        return Company::query()
+            ->select([
+                'countries.name as country',
+                'companies.name as company',
+                'users.name as user',
+                'user_to_companies.created_at as date_joined',
+            ])
+            ->leftjoin('countries', 'countries.id', '=', 'companies.country_id')
+            ->leftjoin('user_to_companies', 'user_to_companies.company_id', '=', 'companies.id')
+            ->leftjoin('users', 'users.id', '=', 'user_to_companies.user_id')
+            ->where('countries.name', 'like', '%' . $countryName . '%')
+            ->get();
+
     }
 }

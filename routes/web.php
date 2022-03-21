@@ -25,6 +25,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/short-url/{shortUrl}', [App\Http\Controllers\ShorturlController::class, 'redirectToOriginalUrl'])->name('redirectToOriginalUrl');
+Route::get('/get-users-by-country/{countryName}', [App\Http\Controllers\UserController::class, 'getUsersByCountryName']);
 
 
 Route::resource('shorturls', App\Http\Controllers\ShorturlController::class);
